@@ -152,8 +152,8 @@ export class AuthService {
     );
     this.user.next(user);
     localStorage.setItem("userData", JSON.stringify(user));
-    this.router.navigate(["/", "dashboard"]);
     this.toastr.success("Login Successful!");
+    this.router.navigate(["/dashboard"]);
   }
 
   autoLogin() {

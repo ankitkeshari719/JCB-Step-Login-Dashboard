@@ -119,7 +119,7 @@ export class RegisterComponent implements OnInit {
           "Your account info and default password will be sent to your email address.",
           response.success_message
         );
-        this.router.navigate(["registration-successful"], {
+        this.router.navigate(["../registration-successful"], {
           relativeTo: this.route
         });
       } else {

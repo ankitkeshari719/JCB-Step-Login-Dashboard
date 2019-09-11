@@ -86,7 +86,9 @@ export class ResetPasswordComponent implements OnInit {
       if (responseData.status === INTERNAL_RESPONSE_STATUS.SUCCESS) {
         this.isLoading = false;
         this.toastr.success(response.success_message);
-        this.router.navigate([""], { relativeTo: this.route });
+        this.router.navigate(["../reset-successful"], {
+          relativeTo: this.route
+        });
       } else {
         this.isLoading = false;
         this.toastr.error(

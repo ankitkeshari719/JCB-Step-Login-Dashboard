@@ -45,7 +45,7 @@ export class SidebarNavComponent implements OnInit {
       // STORING IN SERVICE IF ALL API RETURNED SUCCESS DATA
       if (responseData.status === INTERNAL_RESPONSE_STATUS.SUCCESS) {
         this.toastr.success(response.success_message);
-        this.router.navigate(["/", "auth"]);
+        this.router.navigate(["/auth"]);
         localStorage.removeItem("userData");
       } else {
         this.toastr.error(

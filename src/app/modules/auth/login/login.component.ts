@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     this.createForm();
     this.userSub = this.authService.user.subscribe(user => {
       if (user) {
-        this.router.navigate(["/", "dashboard"]);
+        this.router.navigate(["/dashboard"]);
       }
     });
   }

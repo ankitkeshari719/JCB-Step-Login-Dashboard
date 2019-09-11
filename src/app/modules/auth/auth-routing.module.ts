@@ -1,3 +1,4 @@
+import { ResetSuccessfulComponent } from "./login/reset-successful/reset-successful.component";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: "registration-successful",
         component: RegistrationSuccessfulComponent
+      },
+      {
+        path: "reset-successful",
+        component: ResetSuccessfulComponent
       }
     ]
   }
