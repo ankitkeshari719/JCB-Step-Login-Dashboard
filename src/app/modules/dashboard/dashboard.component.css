@@ -1,0 +1,52 @@
+/* Sidebar styles */
+.side-bar-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.side-bar-is-mobile .side-bar-toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+h1.side-bar-app-name {
+  margin-left: 8px;
+}
+
+.side-bar-sidenav-container {
+  flex: 1;
+}
+
+.side-bar-is-mobile .side-bar-sidenav-container {
+  flex: 1 0 auto;
+}
+
+.side-bar-icon {
+  padding: 0 14px;
+}
+
+.side-bar-spacer {
+  flex: 1 1 auto;
+}
+
+/* Dashboard container styles */
+.dashboard-container {
+  width: 100%;
+  margin: 0px !important;
+}
+
+/* Dashboard header styles */
+.dashboard-header-deatails {
+  width: 100%;
+  margin: 10px 0px !important;
+}
+
+.header-box {
+	border-top: 1px solid #c3c2c2; 
+    box-shadow: 1px 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
