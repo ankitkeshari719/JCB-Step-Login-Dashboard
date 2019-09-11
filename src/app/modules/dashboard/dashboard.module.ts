@@ -1,14 +1,13 @@
 import { MaterialModule } from "./../../material.module";
-import { SidebarNavComponent } from "./sidebar-nav/sidebar-nav.component";
+import { SidebarNavComponent } from "./dashboard-container/sidebar-nav/sidebar-nav.component";
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { DashboardComponent } from "./dashboard.component";
 import { DashboardContainerComponent } from "./dashboard-container/dashboard-container.component";
-import { ProjectListComponent } from "./project-list/project-list.component";
 import { DashboardHeaderComponent } from "./dashboard-container/dashboard-header/dashboard-header.component";
-import { ProjectsComponent } from './projects/projects.component';
+import { ProjectsComponent } from "./dashboard-container/projects/projects.component";
 
 @NgModule({
   declarations: [
@@ -16,7 +15,6 @@ import { ProjectsComponent } from './projects/projects.component';
     SidebarNavComponent,
     DashboardHeaderComponent,
     DashboardContainerComponent,
-    ProjectListComponent,
     ProjectsComponent
   ],
   imports: [CommonModule, DashboardRoutingModule, MaterialModule]

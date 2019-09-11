@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { Subscription } from "rxjs";
 import { MediaMatcher } from "@angular/cdk/layout";
-import { AuthService } from "../../auth/auth.service";
+import { AuthService } from "../../../auth/auth.service";
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 import { InternalResponse, INTERNAL_RESPONSE_STATUS } from "src/app/services";
@@ -9,7 +9,7 @@ import { InternalResponse, INTERNAL_RESPONSE_STATUS } from "src/app/services";
 @Component({
   selector: "app-sidebar-nav",
   templateUrl: "./sidebar-nav.component.html",
-  styleUrls: ["../dashboard.component.css"]
+  styleUrls: ["../../dashboard.component.css"]
 })
 export class SidebarNavComponent implements OnInit {
   mobileQuery: MediaQueryList;
