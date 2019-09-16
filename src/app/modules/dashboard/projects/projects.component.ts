@@ -1,3 +1,5 @@
+import { ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 import { Component, ViewChild, OnInit } from "@angular/core";
 import { MatTableDataSource } from "@angular/material";
 import { MatPaginator } from "@angular/material/paginator";
@@ -24,6 +26,8 @@ export class ProjectsComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
   ngOnInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -49,6 +53,10 @@ export class ProjectsComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  addProject() {
+    this.router.navigate(["projects/new-project"], { relativeTo: this.route });
   }
 }
 export interface Element {

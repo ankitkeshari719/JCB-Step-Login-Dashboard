@@ -13,10 +13,7 @@ import { InternalResponse, INTERNAL_RESPONSE_STATUS } from "src/app/services";
 })
 export class SidebarNavComponent implements OnInit {
   mobileQuery: MediaQueryList;
-  fillerNav = [
-    { nav: "Home", link: "/Charts" },
-    { nav: "S", link: "/flexbox" }
-  ];
+  fillerNav = [{ nav: "Home", link: "/dashboard" }];
   private _mobileQueryListener: () => void;
   private userSub: Subscription;
   isAuthenticated: boolean = false;

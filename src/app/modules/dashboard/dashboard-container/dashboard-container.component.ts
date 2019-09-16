@@ -1,3 +1,4 @@
+import { DashboardService } from "./../dashboard.service";
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -6,7 +7,9 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["../dashboard.component.css"]
 })
 export class DashboardContainerComponent implements OnInit {
-  constructor() {}
+  constructor(private dashboardService: DashboardService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.dashboardService.setTitle("Dashboard");
+  }
 }

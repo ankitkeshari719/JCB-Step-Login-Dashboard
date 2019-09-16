@@ -1,22 +1,21 @@
 <div class="row dashboard-header-deatails">
-  <div class="col-lg-1 col-12 d-flex justify-content-start align-items-center">
-    MY PROJECTS
+  <div class="col-lg-2 col-12 d-flex justify-content-start align-items-center">
+    <span class="mat-step-label font-weight-bold">MY PROJECTS</span>
   </div>
-  <div class="col-lg-3 col-6 d-flex justify-content-start">
+  <div class="col-lg-6 col-6 d-flex justify-content-start">
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
     </mat-form-field>
   </div>
-  <div class="col-lg-8 col-6 d-flex justify-content-end align-items-center">
-    <button mat-raised-button color="primary">ADD PROJECT</button>
+  <div class="col-lg-4 col-6 d-flex justify-content-end align-items-center">
+    <button mat-raised-button color="primary" (click)="addProject()">ADD PROJECT</button>
   </div>
 </div>
 <div class="example-container mat-elevation-z8">
   <mat-table #table [dataSource]="dataSource" matSort>
-
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <mat-header-cell *matHeaderCellDef>
         <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
           [indeterminate]="selection.hasValue() && !isAllSelected()">
         </mat-checkbox>

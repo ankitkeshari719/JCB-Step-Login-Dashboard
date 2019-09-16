@@ -1,0 +1,479 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
+  <mat-horizontal-stepper labelPosition="bottom" #linearVerticalStepper="matHorizontalStepper" formArrayName="formArray"
+    [linear]="false">
+    <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
+      <ng-template matStepLabel>ADD PROJECT INFORMATION</ng-template>
+      <div class="row border bg-light">
+        <div class="col-lg-3 p-5">
+          <p class="add-project-description font-weight-bold">Add Project Information</p>
+          <p class="add-project-description ">
+            <small>
+              {{add_project_description}}
+            </small>
+          </p>
+
+        </div>
+        <div class="col-lg-9 p-4">
+          <div class="row d-flex justify-content-start">
+            <div class="col-lg-3">
+              <mat-form-field class="add-project-full-width">
+                <mat-label>Project Type</mat-label>
+                <mat-select formControlName="projectTypeFormCtrl">
+                  <mat-option *ngFor="let projectType of projectTypes" [value]="projectType.value">
+                    {{projectType.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-3">
+              <mat-form-field class="add-project-full-width">
+                <input matInput [matDatepicker]="picker1" placeholder="Start Date" formControlName="startDateFormCtrl">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-3">
+              <mat-form-field class="add-project-full-width">
+                <input matInput [matDatepicker]="picker2" placeholder="End Date" formControlName="endDateFormCtrl">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-lg-12">
+              <mat-form-field class="add-project-full-width">
+                <input matInput placeholder="Project Name"  formControlName="projectNameFormCtrl">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-lg-12">
+              <mat-form-field class="add-project-full-width">
+                <textarea class="add-project-description" matInput placeholder="Description" rows="8" formControlName="projectDesciptionFormCtrl"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row my-3">
+            <div class="col-lg-12 d-flex justify-content-end">
+              <div>
+                <button mat-raised-button color="primary" type="button" class="mr-2">SAVE DRAFT</button>
+                <button mat-raised-button color="primary" matStepperNext>NEXT</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step formGroupName="1" [stepControl]="formArray?.get([1])">
+      <ng-template matStepLabel>
+        <div>ADD MACHINE</div>
+      </ng-template>
+      <div class="row border bg-light">
+        <div class="col-lg-3 p-5">
+          <p class="add-project-description font-weight-bold">Adding Machines to Project</p>
+          <p class="add-project-description ">
+            <small>
+              {{add_project_description}}
+            </small>
+          </p>
+        </div>
+        <div class="col-lg-9 p-4">
+          <div class="row">
+            <div class="add-machine-table mat-elevation-z8">
+              <mat-table #table [dataSource]="machineDataSource" matSort>
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                  <mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterMachineToggle() : null"
+                      [checked]="machineSelection.hasValue() && isAllMachineSelected()"
+                      [indeterminate]="machineSelection.hasValue() && !isAllMachineSelected()">
+                    </mat-checkbox>
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? machineSelection.toggle(row) : null"
+                      [checked]="machineSelection.isSelected(row)">
+                    </mat-checkbox>
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Plant Column -->
+                <ng-container matColumnDef="plant">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Plant </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.plant}} </mat-cell>
+                </ng-container>
+
+                <!-- Platform Column -->
+                <ng-container matColumnDef="platform">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Platform </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.platform}} </mat-cell>
+                </ng-container>
+
+                <!-- Model Column -->
+                <ng-container matColumnDef="model">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Model </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.model}} </mat-cell>
+                </ng-container>
+
+                <!-- VIN Column -->
+                <ng-container matColumnDef="vin">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> VIN </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.vin}} </mat-cell>
+                </ng-container>
+
+                <!-- Hours Column -->
+                <ng-container matColumnDef="hours">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Hours </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.hours}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="buttons">
+                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                  <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+                    <button mat-raised-button color="accent" type="button" (click)="onDelete(element.id)">
+                      ADD MACHINES
+                    </button>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="addMachineColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: addMachineColumns;" (click)="machineSelection.toggle(row)">
+                </mat-row>
+              </mat-table>
+            </div>
+          </div>
+          <div class="row my-3 d-flex">
+            <div class="col-lg-12 d-flex justify-content-end align-items-end">
+              <div>
+                <button mat-raised-button color="primary" type="button">PREVIOUS</button>
+                <button mat-raised-button color="primary" matStepperPrevious class="mx-2">Back</button>
+                <button mat-raised-button color="primary" matStepperNext>Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>ADD USERS</ng-template>
+      <div class="row border bg-light">
+        <div class="col-lg-3 p-5">
+          <p class="add-project-description font-weight-bold">Adding Machines to Project</p>
+          <p class="add-project-description ">
+            <small>
+              {{add_project_description}}
+            </small>
+          </p>
+        </div>
+        <div class="col-lg-9 p-4">
+          <div class="row">
+            <div class="add-machine-table mat-elevation-z8">
+              <mat-table #table [dataSource]="userDataSource" matSort>
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                  <mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterUserToggle() : null"
+                      [checked]="userSelection.hasValue() && isAllUserSelected()"
+                      [indeterminate]="userSelection.hasValue() && !isAllUserSelected()">
+                    </mat-checkbox>
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? userSelection.toggle(row) : null" [checked]="userSelection.isSelected(row)">
+                    </mat-checkbox>
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Plant Column -->
+                <ng-container matColumnDef="plant">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Plant </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.plant}} </mat-cell>
+                </ng-container>
+
+                <!-- role Column -->
+                <ng-container matColumnDef="role">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.role}} </mat-cell>
+                </ng-container>
+
+                <!-- User Column -->
+                <ng-container matColumnDef="user">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> User </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.user}} </mat-cell>
+                </ng-container>
+
+                <!-- Phone Column -->
+                <ng-container matColumnDef="phone">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Phone </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="buttons">
+                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                  <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+                    <button mat-raised-button color="accent" type="button" (click)="onAddUser(element.id)">
+                      ADD MORE USERS
+                    </button>
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="addUserColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: addUserColumns;" (click)="userSelection.toggle(row)">
+                </mat-row>
+              </mat-table>
+            </div>
+          </div>
+          <div class="row my-3 d-flex">
+            <div class="col-lg-12 d-flex justify-content-end align-items-end">
+              <div>
+                <button mat-raised-button matStepperPrevious class="mr-2">Back</button>
+                <button mat-raised-button color="primary" matStepperNext>Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>ENDURANCE CYCLE</ng-template>
+      <div class="row border bg-light">
+        <div class="col-lg-3 p-5">
+          <p class="add-project-description font-weight-bold">Endurance Cycle</p>
+          <p class="add-project-description ">
+            <small>
+              {{add_project_description}}
+            </small>
+          </p>
+        </div>
+        <div class="col-lg-9 p-4">
+          <div class="row">
+            <div class="add-machine-table mat-elevation-z8">
+              <mat-table #table [dataSource]="enduranceCycleDataSource" matSort>
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                  <mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? enduranceCycleMasterToggle() : null"
+                      [checked]="enduranceCycleSelection.hasValue() && isEnduranceCycleSelected()"
+                      [indeterminate]="enduranceCycleSelection.hasValue() && !isEnduranceCycleSelected()">
+                    </mat-checkbox>
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? enduranceCycleSelection.toggle(row) : null"
+                      [checked]="enduranceCycleSelection.isSelected(row)">
+                    </mat-checkbox>
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Activity Column -->
+                <ng-container matColumnDef="activity">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Activity </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.activity}} </mat-cell>
+                </ng-container>
+
+                <!-- Instructions Column -->
+                <ng-container matColumnDef="instructions">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Instructions </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.instructions}} </mat-cell>
+                </ng-container>
+
+                <!-- Hours Column -->
+                <ng-container matColumnDef="hours">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Hours </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{element.hours}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="buttons">
+                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                  <mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+                    <button mat-raised-button color="accent" type="button" (click)="onAddUser(element.id)">
+                      ADD MORE ACTIVITIES
+                    </button>
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="enduranceCycleColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: enduranceCycleColumns;"
+                  (click)="enduranceCycleSelection.toggle(row)">
+                </mat-row>
+              </mat-table>
+            </div>
+          </div>
+          <div class="row my-3 d-flex">
+            <div class="col-lg-12 d-flex justify-content-end align-items-end">
+              <div>
+                <button mat-raised-button matStepperPrevious class="mr-2">Back</button>
+                <button mat-raised-button color="primary" matStepperNext>Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>REVIEW</ng-template>
+      <div class="row border bg-light">
+        <div class="col-lg-3 p-5">
+          <p class="add-project-description font-weight-bold">Review Changes</p>
+          <p class="add-project-description">
+            <small>
+              {{add_project_description}}
+            </small>
+          </p>
+        </div>
+        <div class="col-lg-9 p-4">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="row py-2">
+                <div class="col-lg-6 col-sm-12">
+                  <div class="row">
+                    <div class="col-6">
+                      <small>Project Type</small>
+                      <p class="font-weight-bold">NPIP</p>
+                    </div>
+                    <div class="col-6">
+                      <small>Start Date</small>
+                      <p class="font-weight-bold">12/12/2019</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <small>Project Name</small>
+                      <p class="font-weight-bold">Lorem ipsum dolor sit amet</p>
+                    </div>
+                    <div class="col-6">
+                      <small>End Date</small>
+                      <p class="font-weight-bold">12/12/2019</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                  <small>Description</small>
+                  <p class="add-project-description">
+                    {{add_project_description}}
+                  </p>
+                </div>
+              </div>
+              <div class="row my-2 py-2">
+                <div class="col-lg-12">
+                  <span class="mat-step-label font-weight-light">MACHINES</span>
+                  <div class="add-machine-table mat-elevation-z8">
+                    <mat-table #table [dataSource]="machineDataSource">
+                      <!-- Plant Column -->
+                      <ng-container matColumnDef="plant">
+                        <mat-header-cell *matHeaderCellDef> Plant </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.plant}} </mat-cell>
+                      </ng-container>
+
+                      <!-- Platform Column -->
+                      <ng-container matColumnDef="platform">
+                        <mat-header-cell *matHeaderCellDef> Platform </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.platform}} </mat-cell>
+                      </ng-container>
+
+                      <!-- Model Column -->
+                      <ng-container matColumnDef="model">
+                        <mat-header-cell *matHeaderCellDef> Model </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.model}} </mat-cell>
+                      </ng-container>
+
+                      <!-- VIN Column -->
+                      <ng-container matColumnDef="vin">
+                        <mat-header-cell *matHeaderCellDef> VIN </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.vin}} </mat-cell>
+                      </ng-container>
+
+                      <!-- Hours Column -->
+                      <ng-container matColumnDef="hours">
+                        <mat-header-cell *matHeaderCellDef> Hours </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.hours}} </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="reviewMachinesColumn"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: reviewMachinesColumn;">
+                      </mat-row>
+                    </mat-table>
+                  </div>
+                </div>
+              </div>
+              <div class="row my-2 py-2">
+                <div class="col-lg-12">
+                  <span class="mat-step-label font-weight-light">USERS</span>
+                  <div class="add-machine-table mat-elevation-z8">
+                    <mat-table #table [dataSource]="userDataSource">
+
+                      <!-- Plant Column -->
+                      <ng-container matColumnDef="plant">
+                        <mat-header-cell *matHeaderCellDef> Plant </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.plant}} </mat-cell>
+                      </ng-container>
+
+                      <!-- role Column -->
+                      <ng-container matColumnDef="role">
+                        <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.role}} </mat-cell>
+                      </ng-container>
+
+                      <!-- User Column -->
+                      <ng-container matColumnDef="user">
+                        <mat-header-cell *matHeaderCellDef> User </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.user}} </mat-cell>
+                      </ng-container>
+
+                      <!-- Phone Column -->
+                      <ng-container matColumnDef="phone">
+                        <mat-header-cell *matHeaderCellDef> Phone </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="reviewUsersColumn"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: reviewUsersColumn;">
+                      </mat-row>
+                    </mat-table>
+                  </div>
+                </div>
+              </div>
+              <div class="row my-2 py-2">
+                <div class="col-lg-12">
+                  <span class="mat-step-label font-weight-light">ENDURANCE CYCLE</span>
+                  <div class="add-machine-table mat-elevation-z8">
+                    <mat-table #table [dataSource]="enduranceCycleDataSource">
+
+                      <!-- Activity Column -->
+                      <ng-container matColumnDef="activity">
+                        <mat-header-cell *matHeaderCellDef> Activity </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.activity}} </mat-cell>
+                      </ng-container>
+
+                      <!-- Instructions Column -->
+                      <ng-container matColumnDef="instructions">
+                        <mat-header-cell *matHeaderCellDef> Instructions </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.instructions}} </mat-cell>
+                      </ng-container>
+
+                      <!-- Hours Column -->
+                      <ng-container matColumnDef="hours">
+                        <mat-header-cell *matHeaderCellDef> Hours </mat-header-cell>
+                        <mat-cell *matCellDef="let element"> {{element.hours}} </mat-cell>
+                      </ng-container>
+
+                      <mat-header-row *matHeaderRowDef="reviewEnduranceCycleColumn"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: reviewEnduranceCycleColumn;">
+                      </mat-row>
+                    </mat-table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row my-3 d-flex">
+            <div class="col-lg-12 d-flex justify-content-end align-items-end">
+              <div>
+                <button type="button" class="mr-2" mat-raised-button
+                  (click)="linearVerticalStepper.reset()">Reset</button>
+                <button mat-raised-button color="primary" type="submit">Done</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</form>

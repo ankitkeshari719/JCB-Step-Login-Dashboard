@@ -14,7 +14,6 @@ import {
   UserRegistrationRequest,
   forgetPasswordRequest,
   UserLoginResponse,
-  INTERNAL_RESPONSE_STATUS,
   BACKEND_RESPONSE_STATUS,
   resetPasswordRequest
 } from "src/app/services";
