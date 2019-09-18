@@ -3,17 +3,19 @@ JCB Endurance testing involves the examing a machine while it withstands a hige 
 for a long period of time, and measuring the machine's reaction parameters under such 
 conditions.
 
-# Steps to clone and set the project on local environment
+## Steps to clone and set the project on local environment
 
 ## Git global setup
 
 Go to CLI and run the below command
+
     git config --global user.name `your name`
     git config --global user.email `your Gslab mail id`
 
 ## Create a new repository
 
 Go to CLI and run the below command
+    
     git clone http://gsgit.gslab.com/jcb/EnduranceFrontEnd.git
     cd EnduranceFrontEnd
     npm install --save 
