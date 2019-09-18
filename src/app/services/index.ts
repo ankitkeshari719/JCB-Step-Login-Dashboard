@@ -1,3 +1,2 @@
 export * from "./configurations.service";
 export * from "./modify-response.service";
-export * from "./user.service";

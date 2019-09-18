@@ -6,7 +6,7 @@ import { ToastrService } from "ngx-toastr";
 import { AuthService } from "../../auth.service";
 import { emailregex, resetPasswordUrl } from "src/app/config/const";
 import {
-  forgetPasswordRequest,
+  ForgetPasswordRequest,
   INTERNAL_RESPONSE_STATUS
 } from "src/app/services";
 
@@ -49,7 +49,7 @@ export class ForgotPasswordComponent implements OnInit {
    * Forgets password
    * @param reqData
    */
-  forgetPassword(reqData: forgetPasswordRequest) {
+  forgetPassword(reqData: ForgetPasswordRequest) {
     reqData.resetPasswordUrl = resetPasswordUrl;
     this.isLoading = true;
     this.authService.forgotPassword(reqData).subscribe(response => {

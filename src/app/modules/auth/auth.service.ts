@@ -12,10 +12,10 @@ import {
   handleError,
   modifyResponse,
   UserRegistrationRequest,
-  forgetPasswordRequest,
+  ForgetPasswordRequest,
   UserLoginResponse,
   BACKEND_RESPONSE_STATUS,
-  resetPasswordRequest
+  ResetPasswordRequest
 } from "src/app/services";
 import {
   LOGIN,
@@ -105,7 +105,7 @@ export class AuthService {
    * @param userName
    * @returns
    */
-  forgotPassword(reqDetails: forgetPasswordRequest) {
+  forgotPassword(reqDetails: ForgetPasswordRequest) {
     return this.http
       .post(createUrl(FORGOT_PASSWORD), reqDetails, { headers: getHeader() })
       .pipe(
@@ -118,7 +118,7 @@ export class AuthService {
       );
   }
 
-  resetPassword(reqDetails: resetPasswordRequest) {
+  resetPassword(reqDetails: ResetPasswordRequest) {
     return this.http
       .post(createUrl(RESET_PASSWORD), reqDetails, { headers: getHeader() })
       .pipe(
@@ -147,7 +147,8 @@ export class AuthService {
       responsedata.smsLanguage,
       responsedata.sysGenPassword,
       responsedata.thumbnail,
-      responsedata.timeZone
+      responsedata.timeZone,
+      responsedata.lastLoginTime
     );
     this.user.next(user);
     localStorage.setItem("userData", JSON.stringify(user));
@@ -172,6 +173,7 @@ export class AuthService {
       sysGenPassword: boolean;
       thumbnail: string;
       timeZone: string;
+      lastLoginTime: string;
     } = JSON.parse(localStorage.getItem("userData"));
     if (!userData) {
       return;
@@ -191,7 +193,8 @@ export class AuthService {
       userData.smsLanguage,
       userData.sysGenPassword,
       userData.thumbnail,
-      userData.timeZone
+      userData.timeZone,
+      userData.lastLoginTime
     );
     if (loadedUser.token) {
       this.user.next(loadedUser);

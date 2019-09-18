@@ -1,3 +1,4 @@
+// All Auth interface
 export interface RoleType {
   value: string;
   viewValue: string;
@@ -41,29 +42,100 @@ export interface UserLoginResponse {
   bucketAccesskey: string;
   bucketSecretkey: string;
   isSecretQuestion: boolean;
+  lastLoginTime: string;
 }
 
-export interface forgetPasswordRequest {
+export interface ForgetPasswordRequest {
   email: string;
   resetPasswordUrl: string;
 }
 
-export interface resetPasswordRequest {
+export interface ResetPasswordRequest {
   email: string;
   newPassword: string;
 }
 
-export interface ForgotUserNameRequest {
-  email: string;
-  mobileNumber: string;
-  questions: [
-    {
-      answer: string;
-      identification: string;
-      question: string;
-    }
-  ];
+// All dashboard interface
+export interface ProjectType {
+  value: string;
+  viewValue: string;
 }
+
+export interface NewMachineRequest {
+  description: string;
+  machineName: string;
+  modelId: string;
+  platformId: string;
+  vin: string;
+}
+
+export interface Machine {
+  plant: string;
+  platform: string;
+  model: string;
+  vin: string;
+  hours: string;
+}
+
+export interface User {
+  plant: string;
+  role: string;
+  user: string;
+  phone: string;
+}
+
+export interface EnduranceCycle {
+  activity: string;
+  instructions: string;
+  hours: string;
+}
+
+export const MACHINE_DATA: Machine[] = [
+  {
+    plant: "Pune",
+    platform: "Excavators",
+    model: "JCB124495",
+    vin: "ABC74549330",
+    hours: "1000"
+  },
+  {
+    plant: "Pune",
+    platform: "Excavators",
+    model: "JCB124495",
+    vin: "ABC74549330",
+    hours: "1000"
+  }
+];
+
+export const USER_DATA: User[] = [
+  {
+    plant: "Pune",
+    role: "Operators",
+    user: "Ankit K",
+    phone: "1234567890"
+  },
+  {
+    plant: "Pune",
+    role: "Operators",
+    user: "Ankit K",
+    phone: "1234567890"
+  }
+];
+
+export const ENDURANCE_CYCLE_DATA: EnduranceCycle[] = [
+  {
+    activity: "Digging",
+    instructions:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting ",
+    hours: "3000"
+  },
+  {
+    activity: "Pune",
+    instructions:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting ",
+    hours: "4000"
+  }
+];
 
 interface SecretQuestion {
   identification: string;

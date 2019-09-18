@@ -16,7 +16,8 @@ export class User {
     public smsLanguage: string,
     public sysGenPassword: boolean,
     public thumbnail: string,
-    public timeZone: string
+    public timeZone: string,
+    public lastLoginTime: string
   ) {}
 
   get token() {
