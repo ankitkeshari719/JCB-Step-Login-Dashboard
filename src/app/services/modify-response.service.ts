@@ -1,3 +1,4 @@
+/* THIS FILE CONTAINS HELPS TO MODIFY THE RESPONSES OD WEBSERVICES */
 import { authorization_key, content_type } from "./../config/const";
 import { HttpHeaders } from "@angular/common/http";
 import { of } from "rxjs";
@@ -52,7 +53,6 @@ export function modifyResponse(response: any): InternalResponse {
         }
       );
     }
-
     return {
       status: INTERNAL_RESPONSE_STATUS.FAILED,
       error_message:
@@ -82,7 +82,7 @@ export function handleError(errorRes: any, url: string) {
 }
 
 /**
- * Gets header
+ * FUNTION TO ADD ALL THE REQUIRED HEADERS IN EACH SERVICE CALL
  * @returns
  */
 export function getHeader() {
@@ -92,6 +92,12 @@ export function getHeader() {
   return headers;
 }
 
+/**
+ * COMMON FUNCTION TO CREATE COMPLETE URL WITH BASE URLAND PARAM
+ * @param url HOLDS THE URL
+ * @param [params] HOLDS THE PARAMS ADDED TO REQUEST
+ * @returns url HOLDS THE COMPLETE URL 
+ */
 export function createUrl(url: string, params: string[] = []): string {
   params.forEach((param, index) => {
     url = url.replace("$" + (index + 1), param);

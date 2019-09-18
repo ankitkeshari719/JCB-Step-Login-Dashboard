@@ -58,6 +58,11 @@ export class LoginComponent implements OnInit {
       : "";
   }
 
+  /**
+   * Logins login component
+   * @param data HOLDS THE DATA FOR  LOGIN REQUEST
+   * @returns  SUCCESSFUL / FAILED MESSAGE RESPONSE
+   */
   login(data): void {
     if (data.email && data.password) {
       let loginRequestDetails: UserLoginRequest = {

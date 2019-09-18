@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { map, catchError } from "rxjs/operators";
 import { Observable, BehaviorSubject } from "rxjs";
 import { ToastrService } from "ngx-toastr";
+import { User } from "./user.model";
 
 import {
   UserLoginRequest,
@@ -25,7 +26,6 @@ import {
   RESET_PASSWORD
 } from "src/app/config/backend.api.urls";
 import { Router } from "@angular/router";
-import { User } from "./user.model";
 
 @Injectable({
   providedIn: "root"
@@ -39,9 +39,9 @@ export class AuthService {
   ) {}
 
   /**
-   * Logins user
-   * @param loginDetails
-   * @returns user
+   * FUNCTION TO LOGIN WITH VALID CREDENCIAL
+   * @param loginDetails HOLDS THE REQUIRED LOGIN REQUEST DETAILS
+   * @returns user: OBJECT CONTAIN ALL THE DATA OF LOGGED-IN USER
    */
   loginUser(loginDetails: UserLoginRequest) {
     return this.http
@@ -62,9 +62,9 @@ export class AuthService {
   }
 
   /**
-   * Registers user
-   * @param reqDetails
-   * @returns user
+   * FUNCTION REGISTER NEW USER
+   * @param reqDetails HOLDS THE REQUIRED REGISTER DETAILS
+   * @returns SUCCESSFUL/FAILDED MESSAGE
    */
   registerUser(
     reqDetails: UserRegistrationRequest
@@ -84,7 +84,8 @@ export class AuthService {
   }
 
   /**
-   * Logouts user service
+   * FUNCTION TO LOGOUT THE USER
+   * @returns SUCCESSFUL/FAILDED MESSAGE
    */
   logout() {
     return this.http.get(createUrl(LOGOUT), { headers: getHeader() }).pipe(
@@ -101,9 +102,9 @@ export class AuthService {
   }
 
   /**
-   * Forgots password
-   * @param userName
-   * @returns
+   * FUNCTION THAT HELPS TO FORGETED PASSWORD USER
+   * @param userName: VALID EMAIL OF USER
+   * @returns SUCCESSFUL/FAILDED MESSAGE
    */
   forgotPassword(reqDetails: ForgetPasswordRequest) {
     return this.http
@@ -118,6 +119,11 @@ export class AuthService {
       );
   }
 
+  /**
+   *FUNCTION THAT HELPS TO RESET PASSWORD USER
+   * @param reqDetails HOLDS THE REQUIRED REQUEST DETAILS
+   * @returns  SUCCESSFUL/FAILDED MESSAGE
+   */
   resetPassword(reqDetails: ResetPasswordRequest) {
     return this.http
       .post(createUrl(RESET_PASSWORD), reqDetails, { headers: getHeader() })
@@ -131,31 +137,10 @@ export class AuthService {
       );
   }
 
-  handleAuthentication(responsedata: UserLoginResponse) {
-    const user = new User(
-      responsedata.accessToken,
-      responsedata.bucketAccesskey,
-      responsedata.bucketSecretkey,
-      responsedata.country,
-      responsedata.email,
-      responsedata.firstName,
-      responsedata.image,
-      responsedata.isSecretQuestion,
-      responsedata.lastName,
-      responsedata.number,
-      responsedata.roleName,
-      responsedata.smsLanguage,
-      responsedata.sysGenPassword,
-      responsedata.thumbnail,
-      responsedata.timeZone,
-      responsedata.lastLoginTime
-    );
-    this.user.next(user);
-    localStorage.setItem("userData", JSON.stringify(user));
-    this.toastr.success("Login Successful!");
-    this.router.navigate(["/dashboard"]);
-  }
-
+  /**
+   * FUNCTION THAT HELPS THE USER TO AUTO LOGIN ON REFRESH IF THE TOKEN IS VALID
+   * @returns
+   */
   autoLogin() {
     const userData: {
       accessToken: string;
@@ -199,5 +184,34 @@ export class AuthService {
     if (loadedUser.token) {
       this.user.next(loadedUser);
     }
+  }
+
+  /**
+   * FUNCTION TO HANDLE THE RESPONSE OF LOGIN REST API CALL
+   * @param responsedata HOLD THE RESPONSE OF LOGIN REST API CALL
+   */
+  handleAuthentication(responsedata: UserLoginResponse) {
+    const user = new User(
+      responsedata.accessToken,
+      responsedata.bucketAccesskey,
+      responsedata.bucketSecretkey,
+      responsedata.country,
+      responsedata.email,
+      responsedata.firstName,
+      responsedata.image,
+      responsedata.isSecretQuestion,
+      responsedata.lastName,
+      responsedata.number,
+      responsedata.roleName,
+      responsedata.smsLanguage,
+      responsedata.sysGenPassword,
+      responsedata.thumbnail,
+      responsedata.timeZone,
+      responsedata.lastLoginTime
+    );
+    this.user.next(user);
+    localStorage.setItem("userData", JSON.stringify(user));
+    this.toastr.success("Login Successful!");
+    this.router.navigate(["/dashboard"]);
   }
 }

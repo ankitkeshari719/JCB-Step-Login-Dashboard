@@ -73,6 +73,17 @@ export class NewProjectComponent implements OnInit {
   // Step 2: Add Machine
   machineDataSource = new BehaviorSubject<AbstractControl[]>([]);
   machineSelection = new SelectionModel<Machine>(true, []);
+  machineColumns = [
+    "select",
+    "plant",
+    "platform",
+    "model",
+    "vin",
+    "hours",
+    "buttons"
+  ];
+
+  // Manual data (need to changes)
   machineData: Machine[] = [
     {
       plant: "N/A",
@@ -89,16 +100,8 @@ export class NewProjectComponent implements OnInit {
       hours: ""
     }
   ];
-  machineColumns = [
-    "select",
-    "plant",
-    "platform",
-    "model",
-    "vin",
-    "hours",
-    "buttons"
-  ];
 
+  // Manual data (need to changes)
   plants = [
     { id: "N/A", name: "Select" },
     { id: "pune", name: "Pune" },
@@ -106,11 +109,13 @@ export class NewProjectComponent implements OnInit {
     { id: "anu", name: "Umbre" }
   ];
 
+  // Manual data (need to changes)
   platforms = [
     { id: "N/A", name: "Select" },
     { id: "excavators", name: "Excavators" }
   ];
 
+  // Manual data (need to changes)
   models = [{ id: "N/A", name: "Select" }, { id: "111", name: "JCB12345" }];
 
   get machines() {
@@ -157,17 +162,21 @@ export class NewProjectComponent implements OnInit {
   userDataSource = new BehaviorSubject<AbstractControl[]>([]);
   userSelection = new SelectionModel<User>(true, []);
   userColumns = ["select", "plant", "role", "user", "phone", "buttons"];
+
+  // Manual data (need to changes)
   userData: User[] = [
     { plant: "N/A", role: "operator", user: "leho2121", phone: "9876543210" },
     { plant: "N/A", role: "operator", user: "leho2121", phone: "9876543210" }
   ];
 
+  // Manual data (need to changes)
   roles = [
     { id: "N/A", name: "Select" },
     { id: "operator", name: "Operator" },
     { id: "test_engineer", name: "Test Engineer" }
   ];
 
+  // Manual data (need to changes)
   usersTypes = [
     { id: "N/A", name: "Select" },
     { id: "leho2121", name: "Leroy Holland" }
@@ -216,6 +225,15 @@ export class NewProjectComponent implements OnInit {
   // Step 4:  Endurance Cycle
   enduranceCycleDataSource = new BehaviorSubject<AbstractControl[]>([]);
   enduranceCycleSelection = new SelectionModel<EnduranceCycle>(true, []);
+  enduranceCycleColumns = [
+    "select",
+    "activity",
+    "instructions",
+    "hours",
+    "buttons"
+  ];
+
+  // Manual data (need to changes)
   enduranceData: EnduranceCycle[] = [
     {
       activity: "N/A",
@@ -224,14 +242,8 @@ export class NewProjectComponent implements OnInit {
     }
   ];
 
+  // Manual data (need to changes)
   activities = [{ id: "N/A", name: "Select" }, { id: "E101", name: "Loading" }];
-  enduranceCycleColumns = [
-    "select",
-    "activity",
-    "instructions",
-    "hours",
-    "buttons"
-  ];
 
   get enduranceCycles() {
     return this.formGroup
@@ -273,10 +285,12 @@ export class NewProjectComponent implements OnInit {
   }
 
   // Step 5: Review
+  // Manual data (need to changes)
   reviewMachinesColumn = ["plant", "platform", "model", "vin", "hours"];
   reviewUsersColumn = ["plant", "role", "user", "phone"];
   reviewEnduranceCycleColumn = ["activity", "instructions", "hours"];
 
+  // In Progress
   onSubmit(data) {
     console.log(data);
   }

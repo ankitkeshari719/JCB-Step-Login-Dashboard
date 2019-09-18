@@ -47,7 +47,8 @@ export class ForgotPasswordComponent implements OnInit {
 
   /**
    * Forgets password
-   * @param reqData
+   * @param reqData OLDS THE DATA FOR  FORGET PASSWORD REQUEST
+   * @returns  SUCCESSFUL / FAILED MESSAGE RESPONSE
    */
   forgetPassword(reqData: ForgetPasswordRequest) {
     reqData.resetPasswordUrl = resetPasswordUrl;

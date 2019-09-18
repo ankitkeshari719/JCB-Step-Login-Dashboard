@@ -75,6 +75,11 @@ export class ResetPasswordComponent implements OnInit {
       : "";
   }
 
+  /**
+   * RESET PASSWORD
+   * @param reqData OLDS THE DATA FOR RESET PASSWORD REQUEST
+   * @returns  SUCCESSFUL / FAILED MESSAGE RESPONSE
+   */
   resetPassword(data) {
     const reqData = {
       email: data.email,

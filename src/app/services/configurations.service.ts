@@ -1,4 +1,6 @@
-// All Auth interface
+/* THIS FILE CONTAINS ALL THE STRUCTURAL INTERFACES OF JCB-ENDURANCE-TESTING APPLICATION */
+
+// All Auth modules interface
 export interface RoleType {
   value: string;
   viewValue: string;
@@ -55,7 +57,7 @@ export interface ResetPasswordRequest {
   newPassword: string;
 }
 
-// All dashboard interface
+// All dashboard modules interface
 export interface ProjectType {
   value: string;
   viewValue: string;
@@ -89,53 +91,6 @@ export interface EnduranceCycle {
   instructions: string;
   hours: string;
 }
-
-export const MACHINE_DATA: Machine[] = [
-  {
-    plant: "Pune",
-    platform: "Excavators",
-    model: "JCB124495",
-    vin: "ABC74549330",
-    hours: "1000"
-  },
-  {
-    plant: "Pune",
-    platform: "Excavators",
-    model: "JCB124495",
-    vin: "ABC74549330",
-    hours: "1000"
-  }
-];
-
-export const USER_DATA: User[] = [
-  {
-    plant: "Pune",
-    role: "Operators",
-    user: "Ankit K",
-    phone: "1234567890"
-  },
-  {
-    plant: "Pune",
-    role: "Operators",
-    user: "Ankit K",
-    phone: "1234567890"
-  }
-];
-
-export const ENDURANCE_CYCLE_DATA: EnduranceCycle[] = [
-  {
-    activity: "Digging",
-    instructions:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting ",
-    hours: "3000"
-  },
-  {
-    activity: "Pune",
-    instructions:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting ",
-    hours: "4000"
-  }
-];
 
 interface SecretQuestion {
   identification: string;

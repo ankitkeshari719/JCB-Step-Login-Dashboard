@@ -26,10 +26,13 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   isLoading = false;
 
+  // MANUAL DATA (NEED TO CHANGE ONCE API READY)
   roles: RoleType[] = [
     { value: "Test Engineer", viewValue: "Test Engineer" },
     { value: "Other JCB User", viewValue: "Other JCB User" }
   ];
+
+  // MANUAL DATA (NEED TO CHANGE ONCE API READY)
   locations: Locations[] = [
     { value: "Pune, Maharashtra", viewValue: "Pune, Maharashtra" },
     { value: "Baramati, Maharashtra", viewValue: "Baramati, Maharashtra" },
@@ -45,7 +48,6 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.fetchLocation();
     this.createForm();
   }
 
@@ -75,11 +77,6 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get("location") as FormControl;
   }
 
-  /**
-   * Fetchs location  from backened
-   */
-  fetchLocation() {}
-
   getErrorFirstName() {
     return this.registerForm.get("firstName").hasError("required")
       ? "First Name is required."
@@ -104,6 +101,11 @@ export class RegisterComponent implements OnInit {
       : "";
   }
 
+  /**
+   * Determines whether submit on
+   * @param reqDetails OLDS THE DATA FOR  REGISTER REQUEST
+   * @returns  SUCCESSFUL / FAILED MESSAGE RESPONSE
+   */
   onSubmit(reqDetails: UserRegistrationRequest) {
     if (!this.registerForm.valid) {
       return;
